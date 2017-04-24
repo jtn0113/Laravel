@@ -26,3 +26,22 @@ Route::get('/increment/{int}', function ($int) {
 Route::get('/add/{one}{two}', function ($one, $two) {
     	return $one+$two;
 });
+
+Route::get('/sayhello/{name?}', function($name = "World")
+{
+	$data = ['name' => $name];
+    return view('my-first-view', $data);
+});
+
+Route::get('/rolldice/{guess}', function($guess)
+{
+	$roll = rand(1, 6);
+	$result;
+	if($roll == $guess) {
+		$result = "You win!";
+	} else {
+		$result = "You lose!";
+	}
+	$data = ['guess' => $guess, 'roll' => $roll, 'result' => $result];
+    return view('roll-dice', $data);
+});
