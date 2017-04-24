@@ -16,11 +16,13 @@ Route::get('/', function () {
 });
 
 Route::get('/uppercase/{string}', function ($string) {
-    return strtoupper($string);
+	$data = ['string' => $string];
+    return view('uppercase', $data);
 });
 
 Route::get('/increment/{int}', function ($int) {
-    	return $int+1;
+	$data = ['int' => $int];
+    return view('increment', $data);
 });
 
 Route::get('/add/{one}{two}', function ($one, $two) {
