@@ -7,5 +7,7 @@
 <body>
     @yield('uppercase')
     @yield('increment')
+    @yield('content')
+    @yield('add')
 </body>
 </html>

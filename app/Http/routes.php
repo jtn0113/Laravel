@@ -11,29 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@showWelcome');
 
-Route::get('/uppercase/{string}', function ($string) {
-	$data = ['string' => $string];
-    return view('uppercase', $data);
-});
+Route::get('/uppercase/{string}', 'HomeController@uppercase');
 
-Route::get('/increment/{int}', function ($int) {
-	$data = ['int' => $int];
-    return view('increment', $data);
-});
+Route::get('/increment/{int}', 'HomeController@increment');
 
-Route::get('/add/{one}{two}', function ($one, $two) {
-    	return $one+$two;
-});
+Route::get('/add/{one}/{two}', 'ExampleController@add');
 
-Route::get('/sayhello/{name?}', function($name = "World")
-{
-	$data = ['name' => $name];
-    return view('my-first-view', $data);
-});
+Route::get('/sayhello/{name}', 'HomeController@sayHello');
 
 Route::get('/rolldice/{guess}', function($guess)
 {
