@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 
 class PostsController extends Controller
 {
 
     public function index()
     {
-        $posts = \App\Models\Post::paginate(3);
+        $posts = Post::paginate(3);
         return view('posts.index')->with('posts', $posts);
 
     }
@@ -24,10 +25,10 @@ class PostsController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, \App\Models\Post::$rules);
+        $this->validate($request, Post::$rules);
 
                 // name is not empty
-        $post = new \App\Models\Post();
+        $post = new Post();
         $post->title = $request->title;
         $post->url = $request->url;
         $post->content = $request->content;
@@ -41,7 +42,7 @@ class PostsController extends Controller
 
     public function show(Request $request, $id)
     {
-        $post = \App\Models\Post::find($id);
+        $post = Post::find($id);
         if ($post === null){
             $request->session()->flash('errorMessage', 'This post does not exist');
            return redirect()->action('PostsController@index');
@@ -52,7 +53,7 @@ class PostsController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $post = \App\Models\Post::find($id);
+        $post = Post::find($id);
 
         if ($post === null){
             $request->session()->flash('errorMessage', 'This post does not exist');
@@ -64,14 +65,14 @@ class PostsController extends Controller
 
     public function update(Request $request, $id)
     {
-        $post = \App\Models\Post::find($id);
+        $post = Post::find($id);
 
         if ($post === null){
             $request->session()->flash('errorMessage', 'This post does not exist');
            return redirect()->action('PostsController@index');
         }
 
-        $this->validate($request, \App\Models\Post::$rules);
+        $this->validate($request, Post::$rules);
         $post->title = $request->title;
         $post->url = $request->url;
         $post->content = $request->content;
