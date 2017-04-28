@@ -8,7 +8,10 @@
     @yield('uppercase')
     @yield('increment')
     @if(session()->has('errorMessage'))
-    {{ session('errorMessage') }}
+    <div class="alert alert-danger">{{ session('errorMessage') }}</div> 
+    @endif
+    @if(session()->has('successMessage'))
+    <div class="alert alert-success">{{ session('successMessage') }}</div> 
     @endif
     @yield('content')
     @yield('add')

@@ -17,8 +17,8 @@ class PostsController extends Controller
 
     }
 
-    public function create()
-    {
+    public function create(Request $request)
+    {        
         return view('posts.create');
     }
 
@@ -33,6 +33,8 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->created_by = 1;
         $post->save();
+
+        $request->session()->flash('successMessage', 'Post created successfully');
     
         return redirect('posts');
     }
@@ -48,15 +50,27 @@ class PostsController extends Controller
         }
     }
 
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $post = \App\Models\Post::find($id);
+
+        if ($post === null){
+            $request->session()->flash('errorMessage', 'This post does not exist');
+           return redirect()->action('PostsController@index');
+        }
+
         return view('posts.edit')->with('post', $post);
     }
 
     public function update(Request $request, $id)
     {
         $post = \App\Models\Post::find($id);
+
+        if ($post === null){
+            $request->session()->flash('errorMessage', 'This post does not exist');
+           return redirect()->action('PostsController@index');
+        }
+
         $this->validate($request, \App\Models\Post::$rules);
         $post->title = $request->title;
         $post->url = $request->url;
@@ -66,8 +80,12 @@ class PostsController extends Controller
         return redirect()->action('PostsController@index');
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+        if ($post === null){
+            $request->session()->flash('errorMessage', 'This post does not exist');
+           return redirect()->action('PostsController@index');
+        }
         return 'This should remove a post';
     }
 }
