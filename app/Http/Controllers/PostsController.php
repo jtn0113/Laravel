@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use Log;
 
 class PostsController extends Controller
 {
@@ -42,13 +43,16 @@ class PostsController extends Controller
 
     public function show(Request $request, $id)
     {
-        $post = Post::find($id);
-        if ($post === null){
-            $request->session()->flash('errorMessage', 'This post does not exist');
-           return redirect()->action('PostsController@index');
-        }else{
+        // find or fail does the same as the following commented out code!!
+        $post = Post::findOrFail($id);
+        // if ($post === null){
+        //     abort(404);
+        //     $request->session()->flash('errorMessage', 'This post does not exist');
+        //     Log::info("Post $id was not found");
+        //    return redirect()->action('PostsController@index');
+        // }else{
             return view('posts.show')->with('post', $post);
-        }
+        // }
     }
 
     public function edit(Request $request, $id)
@@ -56,7 +60,9 @@ class PostsController extends Controller
         $post = Post::find($id);
 
         if ($post === null){
-            $request->session()->flash('errorMessage', 'This post does not exist');
+            abort(404);
+            // $request->session()->flash('errorMessage', 'This post does not exist');
+            Log::info("Post $id was not found");
            return redirect()->action('PostsController@index');
         }
 
@@ -68,7 +74,9 @@ class PostsController extends Controller
         $post = Post::find($id);
 
         if ($post === null){
-            $request->session()->flash('errorMessage', 'This post does not exist');
+            abort(404);
+            // $request->session()->flash('errorMessage', 'This post does not exist');
+            Log::info("Post $id was not found");
            return redirect()->action('PostsController@index');
         }
 
@@ -84,7 +92,9 @@ class PostsController extends Controller
     public function destroy(Request $request, $id)
     {
         if ($post === null){
-            $request->session()->flash('errorMessage', 'This post does not exist');
+            abort(404);
+            // $request->session()->flash('errorMessage', 'This post does not exist');
+            Log::info("Post $id was not found");
            return redirect()->action('PostsController@index');
         }
         return 'This should remove a post';
