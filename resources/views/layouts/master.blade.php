@@ -7,6 +7,9 @@
 <body>
     @yield('uppercase')
     @yield('increment')
+    @if(session()->has('errorMessage'))
+    {{ session('errorMessage') }}
+    @endif
     @yield('content')
     @yield('add')
 </body>
