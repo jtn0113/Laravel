@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
@@ -11,6 +9,9 @@ use Log;
 
 class PostsController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
 
     public function index()
     {
@@ -33,7 +34,7 @@ class PostsController extends Controller
         $post->title = $request->title;
         $post->url = $request->url;
         $post->content = $request->content;
-        $post->created_by = 1;
+        $post->created_by = Auth::user()->name;
         $post->save();
 
         $request->session()->flash('successMessage', 'Post created successfully');
