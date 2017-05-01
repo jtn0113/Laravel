@@ -13,11 +13,15 @@ class PostsController extends Controller
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::with('user')->paginate(3);
-        return view('posts.index')->with('posts', $posts);
+        if(isset($request->search)) {
+            $posts = Post::with('user')->where('title', 'like', "%$request->search%")->orWhere('content', 'like', "%$request->search%")->orderBy('created_at', 'DESC')->paginate(4);
+        } else {
+            $posts = Post::with('user')->paginate(3);
+        }
 
+        return view('posts.index')->with('posts', $posts);
     }
 
     public function create(Request $request)
