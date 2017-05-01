@@ -13,4 +13,9 @@ class Post extends BaseModel
         'url'   => 'required|url',
         'content' => 'required'
     );
+
+    public function user()
+	{
+	    return $this->belongsTo('App\User', 'created_by');
+	}
 }
