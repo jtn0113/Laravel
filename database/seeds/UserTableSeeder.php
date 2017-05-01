@@ -11,7 +11,7 @@ class UserTableSeeder extends Seeder {
 			$user = new \App\User();
 			$user->name = $faker->name;
 			$user->email = $faker->email;
-			$user->password = Hash::make('password');
+			$user->password = 'password';
 			$user->save();
 		}
 	}
