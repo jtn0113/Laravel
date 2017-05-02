@@ -16,9 +16,14 @@ class PostsController extends Controller
     public function index(Request $request)
     {
         if(isset($request->search)) {
-            $posts = Post::with('user')->where('title', 'like', "%$request->search%")->orWhere('content', 'like', "%$request->search%")->orderBy('created_at', 'DESC')->paginate(4);
+            $posts = Post::with('user')->where('title', 'like', "%$request->search%")->orWhere('content', 'like', "%$request->search%")->orderBy('created_at', 'DESC')->paginate(10);
+        } elseif ($request->name) {
+            $posts = Post::join('users', 'created_by', '=', 'users.id')
+                    ->where('name', 'like', "%$request->name%")
+                    ->orderBy('posts.created_at', 'DESC')
+                    ->paginate(10);
         } else {
-            $posts = Post::with('user')->paginate(3);
+            $posts = Post::with('user')->orderBy('posts.created_at', 'DESC')->paginate(10);
         }
 
         return view('posts.index')->with('posts', $posts);
@@ -38,7 +43,7 @@ class PostsController extends Controller
         $post->title = $request->title;
         $post->url = $request->url;
         $post->content = $request->content;
-        $post->created_by = Auth::user()->name;
+        $post->created_by = \Auth::user()->id;
         $post->save();
 
         $request->session()->flash('successMessage', 'Post created successfully');

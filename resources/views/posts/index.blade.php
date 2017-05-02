@@ -12,7 +12,7 @@
 	</tr>
 	@foreach($posts as $post)
 	<tr>
-		<td>{{ $post->title }}</td>
+		<td><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></td>
 		<td>{{ $post->url }}</td>
 		<td>{{ $post->content }}</td>
 		<td>{{ $post->created_at->setTimezone('America/Chicago')->format('l, F jS Y @ h:i:s A') }}</td>
