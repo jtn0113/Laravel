@@ -4,6 +4,7 @@
 
 <table class="table table-striped">
 	<tr>
+		<th>Score</th>
 		<th>title</th>
 		<th>url</th>
 		<th>content</th>
@@ -12,6 +13,10 @@
 	</tr>
 	@foreach($posts as $post)
 	<tr>
+		<td>0 <br> 
+		<a href="#"><i class="fa fa-toggle-up"></i></a><br>
+		<a href="#"><i class="fa fa-toggle-down"></i></a> 
+		</td>
 		<td><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></td>
 		<td>{{ $post->url }}</td>
 		<td>{{ $post->content }}</td>
