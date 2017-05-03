@@ -30,6 +30,12 @@ class User extends \App\Models\BaseModel implements AuthenticatableContract,
      */
     protected $fillable = ['name', 'email', 'password'];
 
+    public static $rules = [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255',
+            'password' => 'required|min:6',
+        ];
+
     /**
      * The attributes excluded from the model's JSON form.
      *

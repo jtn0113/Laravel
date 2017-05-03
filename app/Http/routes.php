@@ -10,6 +10,11 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::get('/users/{id}', 'UsersController@show');
+
+Route::get('/users/{id}/edit', 'UsersController@edit');
+
+Route::post('/users/{id}', 'UsersController@update');
 
 Route::get('/votes/up/{post_id}', 'VotesController@up');
 
@@ -43,6 +48,7 @@ Route::get('/rolldice/{guess}', function($guess)
 });
 
 Route::resource('posts', 'PostsController');
+Route::resource('users', 'UsersController');
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
