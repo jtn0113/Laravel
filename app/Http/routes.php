@@ -11,7 +11,15 @@
 |
 */
 
+Route::get('/votes/up/{post_id}', 'VotesController@up');
+
+Route::get('/votes/down/{post_id}', 'VotesController@down');
+
 Route::get('/', 'PostsController@index');
+
+Route::get('/sortNew', 'PostsController@sortNew');
+
+Route::get('/sortRating', 'PostsController@sortRating');
 
 Route::get('/uppercase/{string}', 'HomeController@uppercase');
 

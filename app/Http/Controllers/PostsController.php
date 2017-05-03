@@ -29,6 +29,18 @@ class PostsController extends Controller
         return view('posts.index')->with('posts', $posts);
     }
 
+    public function sortNew(Request $request)
+    {
+        $posts = Post::with('user')->orderBy('posts.created_at', 'DESC')->paginate(10);
+        return view('posts.index')->with('posts', $posts);
+    }
+
+    public function sortRating(Request $request)
+    {
+        $posts = Post::select('posts.*', \DB::raw('sum(votes.vote) as score'))->join('votes', 'posts.id', '=', 'votes.post_id')->groupBy('posts.id')->orderBy('score', 'DESC')->paginate(10);
+        return view('posts.index')->with('posts', $posts);  
+    }
+
     public function create(Request $request)
     {        
         return view('posts.create');
@@ -38,7 +50,7 @@ class PostsController extends Controller
     {
         $this->validate($request, Post::$rules);
 
-                // name is not empty
+        // name is not empty
         $post = new Post();
         $post->title = $request->title;
         $post->url = $request->url;
