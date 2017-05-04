@@ -26,6 +26,8 @@ Route::get('/sortNew', 'PostsController@sortNew');
 
 Route::get('/sortRating', 'PostsController@sortRating');
 
+Route::get('/sortMe', 'PostsController@sortMe');
+
 Route::get('/uppercase/{string}', 'HomeController@uppercase');
 
 Route::get('/increment/{int}', 'HomeController@increment');

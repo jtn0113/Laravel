@@ -41,6 +41,12 @@ class PostsController extends Controller
         return view('posts.index')->with('posts', $posts);  
     }
 
+    public function sortMe(Request $request)
+    {
+        $posts = Post::with('user')->where('posts.created_by', '=', \Auth::user()->id)->orderBy('posts.created_at', 'DESC')->paginate(10);
+        return view('posts.index')->with('posts', $posts);
+    }
+
     public function create(Request $request)
     {        
         return view('posts.create');

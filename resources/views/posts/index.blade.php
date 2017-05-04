@@ -18,6 +18,7 @@
 		  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 			<li><a href="{{ action('PostsController@sortNew') }}">Most Recent</a></li>
 			<li><a href="{{ action('PostsController@sortRating') }}">Highest Rated</a></li>
+			<li><a href="{{ action('PostsController@sortMe') }}">My Posts</a></li>
 		  </ul>
 		</div>
 	</tr>
